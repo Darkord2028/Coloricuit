@@ -4,33 +4,36 @@ using UnityEngine;
 public class BatteryTile : CircuitTile
 {
     [Header("Battery Settings")]
-    public Coloricuit coloricuit;
-    public float supplyRate = 1f;
+    [SerializeField] Coloricuit coloricuit;
+    [SerializeField] float supplyRate = 1f;
 
-    void Start()
+    private void Start()
     {
-        StartCoroutine(SupplyData(supplyRate));
+        StartCoroutine(Activate());
     }
 
-    private IEnumerator SupplyData(float delay)
+    public IEnumerator Activate()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(delay);
-            SendData(coloricuit);
-        }
+        yield return new WaitForSeconds(supplyRate);
+        RecieveData(coloricuit);
     }
 
     public override void SendData(Coloricuit coloricuit)
     {
-        //Debug.Log($"BatteryTile sending data: {coloricuit}");
+        Debug.Log($"BatteryTile sending data: {coloricuit}");
         base.SendData(coloricuit);
     }
 
     public override void RecieveData(Coloricuit coloricuit)
     {
-        //Debug.Log($"BatteryTile received data: {coloricuit}");
+        Debug.Log($"BatteryTile received data: {coloricuit}");
         base.RecieveData(coloricuit);
+    }
+
+    protected override void OnPowered()
+    {
+        //Debug.Log("BatteryTile is powered");
+        // Additional logic when the battery tile is powered can be added here
     }
 
 }

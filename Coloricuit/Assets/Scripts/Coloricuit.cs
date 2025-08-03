@@ -1,16 +1,11 @@
 ﻿using UnityEngine;
 
-public struct Coloricuit
+[System.Serializable]
+public class Coloricuit
 {
     [Header("Coloricuit Config")]
     public ColorType color;
     public Shapes shape;
-    public Direction outputDirection;
-
-    public override string ToString()
-    {
-        return $"Coloricuit: Color={color}, Shape={shape}, OutputDirection={outputDirection}";
-    }
 }
 
 public enum Direction
@@ -28,7 +23,8 @@ public enum ColorType
     Blue,
     Yellow,
     Orange,
-    Purple
+    Purple,
+    Cyan
 }
 
 public enum Shapes

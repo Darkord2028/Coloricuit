@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -38,15 +39,67 @@ public static class Utilities
 
 public static class DirectionUtilities
 {
-    public static Vector2 ToVector(Direction direction)
+    public static Vector2Int ToVector2Int(Direction direction)
     {
         return direction switch
         {
-            Direction.Up => Vector2.up,
-            Direction.Down => Vector2.down,
-            Direction.Left => Vector2.left,
-            Direction.Right => Vector2.right,
-            _ => Vector2.zero
+            Direction.Up => Vector2Int.up,
+            Direction.Down => Vector2Int.down,
+            Direction.Left => Vector2Int.left,
+            Direction.Right => Vector2Int.right,
+            _ => Vector2Int.zero
         };
     }
+
+    public static Direction GetOpposite(Direction dir)
+    {
+        return dir switch
+        {
+            Direction.Up => Direction.Down,
+            Direction.Down => Direction.Up,
+            Direction.Left => Direction.Right,
+            Direction.Right => Direction.Left,
+            _ => dir
+        };
+    }
+
 }
+
+public static class ColorUtility
+{
+    private static readonly Dictionary<(ColorType, ColorType), ColorType> mixTable = new()
+    {
+        // Red combinations
+        {(ColorType.Red, ColorType.Green), ColorType.Yellow},
+        {(ColorType.Red, ColorType.Blue), ColorType.Purple},
+        {(ColorType.Red, ColorType.Yellow), ColorType.Orange},
+        {(ColorType.Red, ColorType.Orange), ColorType.Red},
+        {(ColorType.Red, ColorType.Purple), ColorType.Purple},
+        {(ColorType.Red, ColorType.Cyan), ColorType.Cyan},
+
+        // Blue combinations
+        {(ColorType.Blue, ColorType.Green), ColorType.Cyan},
+        {(ColorType.Blue, ColorType.Yellow), ColorType.Green},
+        {(ColorType.Blue, ColorType.Orange), ColorType.Purple},
+        {(ColorType.Blue, ColorType.Purple), ColorType.Purple},
+        {(ColorType.Blue, ColorType.Cyan), ColorType.Cyan},
+
+        // Add all other combinations...
+    };
+
+    public static ColorType? Mix(ColorType a, ColorType b)
+    {
+        if (a == b)
+            return a;
+
+        if (mixTable.TryGetValue((a, b), out var result))
+            return result;
+
+        if (mixTable.TryGetValue((b, a), out result))
+            return result;
+
+        return null; // No mix found
+    }
+}
+
+

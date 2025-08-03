@@ -1,40 +1,46 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public abstract class CircuitTile : MonoBehaviour
 {
     [Header("Tile Conguration")]
-    public Direction outputDirection;
-    public float raycastDistance = 3f;
+    public Vector2Int tilePosition;
+    public List<Direction> outputDirections;
+    public List<Direction> inputDirections;
+    public bool hasPower = false;
+    public float powerSupplyRate = 1.5f;
 
     public virtual void RecieveData(Coloricuit coloricuit)
     {
+        if (!hasPower)
+        {
+            hasPower = true;
+            OnPowered();
+            StartCoroutine(DelaySendData(coloricuit));
+        }
+    }
+
+    private IEnumerator DelaySendData(Coloricuit coloricuit)
+    {
+        yield return new WaitForSeconds(powerSupplyRate);
         SendData(coloricuit);
     }
 
     public virtual void SendData(Coloricuit coloricuit)
     {
-        Vector2 direction = DirectionUtilities.ToVector(outputDirection);
-        Vector2 origin = transform.position;
-
-        RaycastHit2D hit = Physics2D.Raycast(origin, direction, raycastDistance);
-
-        if (hit.collider != null)
+        foreach (Direction direction in outputDirections)
         {
-            CircuitTile receiver = hit.collider.GetComponent<CircuitTile>();
-            if (receiver != null)
+            Vector2Int targetPosition = tilePosition + DirectionUtilities.ToVector2Int(direction);
+            CircuitTile targetTile = CircuitManager.Instance.GetTile(targetPosition);
+
+            if (targetTile != null && targetTile.inputDirections.Contains(DirectionUtilities.GetOpposite(direction)))
             {
-                receiver.RecieveData(coloricuit);
+                targetTile.RecieveData(coloricuit);
             }
-            else
-            {
-                Debug.LogWarning($"No Coloricuit found in direction {outputDirection} from {origin}");
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"No hit detected in direction {outputDirection} ({direction}) from {origin}");
         }
     }
 
+    protected abstract void OnPowered();
 
 }

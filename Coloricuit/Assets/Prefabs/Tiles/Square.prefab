@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4200866597732514605}
   - component: {fileID: 2437000846546145443}
   - component: {fileID: 8151927381321510403}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226909b276dd7e1429040d8361490b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outputDirection: 0
+  tilePosition: {x: 0, y: 0}
+  outputDirections: 00000000
+  inputDirections: 01000000
+  hasPower: 0
+  powerSupplyRate: 3
+  coloricuit:
+    color: 2
+    shape: 0
   supplyRate: 2
 --- !u!61 &8151927381321510403
 BoxCollider2D:
