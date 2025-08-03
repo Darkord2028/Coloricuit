@@ -67,6 +67,17 @@ public static class DirectionUtilities
 
 public static class ColorUtility
 {
+    private static readonly Dictionary<ColorType, Color> colorMap = new()
+    {
+        { ColorType.Red,     Color.red },
+        { ColorType.Green,   Color.green },
+        { ColorType.Blue,    Color.blue },
+        { ColorType.Yellow,  Color.yellow },
+        { ColorType.Orange,  new Color(1f, 0.5f, 0f) },     // RGB for Orange
+        { ColorType.Purple,  new Color(0.5f, 0f, 0.5f) },   // RGB for Purple
+        { ColorType.Cyan,    Color.cyan },
+    };
+
     private static readonly Dictionary<(ColorType, ColorType), ColorType> mixTable = new()
     {
         // Red combinations
@@ -99,6 +110,14 @@ public static class ColorUtility
             return result;
 
         return null; // No mix found
+    }
+
+    public static Color GetUnityColor(ColorType type)
+    {
+        if (colorMap.TryGetValue(type, out var color))
+            return color;
+
+        return Color.magenta; // Fallback for undefined colors
     }
 }
 

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8183414052620648923}
   - component: {fileID: 4200866597732514605}
+  - component: {fileID: 2437000846546145443}
   - component: {fileID: 8151927381321510403}
-  - component: {fileID: 407214637072049288}
   m_Layer: 6
-  m_Name: Alternator
+  m_Name: Battery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,17 +78,38 @@ SpriteRenderer:
   m_SortingLayerID: 1007155151
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 51367475aa1e2b8438b4ed18c7cbc8a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 966d9bf4a213bf14ea5922fe18f53ba9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.9765625}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2437000846546145443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919806596676194066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226909b276dd7e1429040d8361490b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePosition: {x: 0, y: 0}
+  outputDirections: 00000000
+  inputDirections: 01000000
+  hasPower: 0
+  powerSupplyRate: 3
+  coloricuit:
+    color: 2
+    shape: 0
+  supplyRate: 2
 --- !u!61 &8151927381321510403
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,30 +149,10 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 0.9765625}
-    newSize: {x: 1, y: 0.9765625}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &407214637072049288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919806596676194066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5a393d3fba174b42b35bcd9a6dc4dcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilePosition: {x: 0, y: 0}
-  outputDirections: 00000000
-  inputDirections: 01000000
-  hasPower: 0
-  powerSupplyRate: 2
-  currentColoricuit:
-    color: 1
-    shape: 0

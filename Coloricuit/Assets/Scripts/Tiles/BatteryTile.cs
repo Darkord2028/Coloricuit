@@ -7,6 +7,21 @@ public class BatteryTile : CircuitTile
     [SerializeField] Coloricuit coloricuit;
     [SerializeField] float supplyRate = 1f;
 
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("BatteryTile requires a SpriteRenderer component.");
+        }
+        else
+        {
+            spriteRenderer.color = ColorUtility.GetUnityColor(coloricuit.color);
+        }
+    }
+
     private void Start()
     {
         StartCoroutine(Activate());

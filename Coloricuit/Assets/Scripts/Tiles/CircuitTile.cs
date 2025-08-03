@@ -8,7 +8,7 @@ public abstract class CircuitTile : MonoBehaviour
     public Vector2Int tilePosition;
     public List<Direction> outputDirections;
     public List<Direction> inputDirections;
-    public bool hasPower = false;
+    [HideInInspector] public bool hasPower = false;
     public float powerSupplyRate = 1.5f;
 
     public virtual void RecieveData(Coloricuit coloricuit)
